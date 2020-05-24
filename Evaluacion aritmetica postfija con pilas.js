@@ -34,15 +34,19 @@ console.log(evaluacion("456*+"));
 
 function evaluacion(expresionSufija){
   const PilaOperadores = new Stack();
-  var simbolos = expresionSufija.split();//La expresion a evaluar la volvemos cadena con split();
+  var simbolos = expresionSufija.split("");//La expresion a evaluar la volvemos cadena con split();
+    //si no pones "" como parametro del split te va a dejar todo junto como un solo elemento, con el "" separa cada caracter o simbolo
   for(let i=0; i<simbolos.length; i++){//Recorremos las lista de izquierda a derecha 
-    if(i == "1234567890"){//si i es igual a operando
-      PilaOperadores.push(parseInt(i));//entonces i lo agregamos a PilaOperadores como entero
+      //en las siguientes dos lineas usas i, cuando deberias usar simbolos[i] que es el que tiene un numero o un operador
+      let num=parseInt(simbolos[i]);
+    if(num>=0 && num<=9)//es un numero     //i == "1234567890"){//si i es igual a operando
+      PilaOperadores.push(num); //lo metemos a la pila parseInt(i));//entonces i lo agregamos a PilaOperadores como entero
     }
     else{
       var op2 = PilaOperadores.pop();//obtendremos los operando de la pila
       var op1 = PilaOperadores.pop();
-      var res = aritmetica(i,op1,op2);//obtenemos el resultado mediante la funcion aritmetica 
+        ///estas mandando i es decir un numero de posición y no el simbolo de la operacion
+      var res = aritmetica(simbolo[i],op1,op2);//i,op1,op2);//obtenemos el resultado mediante la funcion aritmetica 
       PilaOperadores.push(res);//y agregamos el resultado a la PilaOperadores
     } 
   }
