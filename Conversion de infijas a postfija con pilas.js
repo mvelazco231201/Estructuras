@@ -85,9 +85,9 @@ function convertir(expresionInfija){
         if(Operacion[i] >= 'A' && Operacion[i] <= 'Z'){
             expresionSufija.agregar(Operacion[i]);//agregamos el operando en un array llamado expresionSufija
         }
-        else if (Operacion[i]=="("|| Operacion[i]=="*" ||Operacion[i]=="/"||Operacion[i]=="+"||Operacion[i]=="-"){
+        else if (Operacion[i]=="("|| Operacion[i]=="*" ||Operacion[i]=="/"||Operacion[i]=="+"||Operacion[i]=="-"||Operacion[i]==")"){//falta meter el parentesis que cierra tambien
 
-            if(PilaOperadores.empty()==true){//Si  nuestra pila esta vacia
+            if(PilaOperadores.empty()==true||Operacion[i]=="("){//Si  nuestra pila esta vacia y si es el parentesis que abre se mete
                 PilaOperadores.push(Operacion[i]);//agregamos el valor a una Pila de Operadores
             }
             else if(precedencia[Operacion[i]]>precedencia[PilaOperadores.peek()]){//si el valor es mayor al ultimo valor que ya estaba en la pila
@@ -107,8 +107,9 @@ function convertir(expresionInfija){
             else if(Operacion[i]==")"){//es un simbolo tope 
                     let simTope = PilaOperadores.pop();//por lo que se va a extraer un simbolo de la pila de Operadores
                     while(simTope != "("){ 
-                    simTope = PilaOperadores.pop();//y el simbolo tope sera igual a extraer ultimo elemento en la Pila de Operadores
-                    expresionSufija.agregar(simTope);//al array le agregamos el simbolo tope
+                    //primero metemos el operador pues ya vimos que no es parentesis que abre, entonces metemos y sacamos el siguiente elemento para que se evalue en el ciclo                    
+                        expresionSufija.agregar(simTope);//al array le agregamos el simbolo tope
+                        simTope = PilaOperadores.pop();//y el simbolo tope sera igual a extraer ultimo elemento en la Pila de Operadores
                 }
              }
           }
